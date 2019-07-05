@@ -15,7 +15,7 @@ export default function NavBar() {
 
     return (
         <div>
-            <AppBar>
+            <AppBar position='sticky'>
                 <Toolbar>
                     <Button className='more-options'> <MoreVertIcon /> </Button>
                 </Toolbar> 
