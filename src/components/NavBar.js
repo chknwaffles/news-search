@@ -1,7 +1,54 @@
 import React from 'react'
 import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
+
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+// <<<<<<< jennifer
+// import List from '@material-ui/core/List';
+// import Divider from '@material-ui/core/Divider';
+// import ListItem from '@material-ui/core/ListItem';
+// import ListItemIcon from '@material-ui/core/ListItemIcon';
+// import ListItemText from '@material-ui/core/ListItemText';
+// import MoreVertIcon from '@material-ui/icons/MoreVert';
+// import Typography from '@material-ui/core/Typography';
+
+
+// class NavBar extends React.Component {
+//     render(){
+//         return (
+//             <div>
+//                 <AppBar position='sticky'>
+//                     {
+//                     this.props.currentUser
+
+//                     ?
+                    
+//                     <Toolbar>
+//                         <Button className='more-options'> <MoreVertIcon /> </Button>
+//                         <Typography variant="h6">News</Typography>
+//                         <Button onClick={this.props.logout} color="inherit">Logout</Button>
+//                     </Toolbar>
+
+//                     :
+
+//                     <Toolbar>
+//                         <Button className='more-options'> <MoreVertIcon /> </Button>
+//                         <Typography variant="h6">News</Typography>
+//                         <Button to="/login" color="inherit">Login</Button>
+//                         <Button to="/signup" color="inherit">SignUp</Button>
+//                     </Toolbar>
+//                     }
+//                 </AppBar>
+                
+//             </div>
+//         )
+//     }
+
+// }
+
+// export default NavBar
+// =======
 import IconButton from '@material-ui/core/IconButton';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
@@ -63,7 +110,14 @@ const useStyles = makeStyles(theme => ({
 
 export default function NavBar({searchTerm, handleSearchInput, handleSearchSubmit}) {
     const classes = useStyles();
-
+    const showProperButton = () => {
+      if (props.currentUser) {
+        <Button onClick={props.logout} color="inherit">Logout</Button>
+      } else {              
+                        <Button to="/login" color="inherit">Login</Button>
+                        <Button to="/signup" color="inherit">SignUp</Button>
+      }
+    }
     return (
         <div className={classes.root}>
             <AppBar position="sticky">
@@ -80,6 +134,11 @@ export default function NavBar({searchTerm, handleSearchInput, handleSearchSubmi
                     <div className={classes.searchIcon}>
                         <SearchIcon />
                     </div>
+                    <Toolbar>
+                        <Button className='more-options'> <MoreVertIcon /> </Button>
+                        <Typography variant="h6">News</Typography>
+                        {showProperButton()}
+                    </Toolbar>
                     <InputBase
                         placeholder="Search Topic..."
                         classes={{
