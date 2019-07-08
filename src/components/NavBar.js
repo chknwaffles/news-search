@@ -61,7 +61,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function NavBar(props) {
+export default function NavBar({searchTerm, handleSearchInput, handleSearchSubmit}) {
     const classes = useStyles();
 
     return (
@@ -87,10 +87,10 @@ export default function NavBar(props) {
                         input: classes.inputInput,
                         }}
                         inputProps={{ 'aria-label': 'Search' }}
-                        value={props.searchTerm}
-                        onChange={props.handleSearchInput}
+                        value={searchTerm}
+                        onChange={handleSearchInput}
                     />
-                    <Button size='small' onClick={props.handleSearchSubmit}>Search</Button>
+                    <Button size='small' onClick={handleSearchSubmit}>Search</Button>
                     </div>
                 </Toolbar>
             </AppBar>
