@@ -28,6 +28,20 @@ export default function Map() {
                         key={ geography.id }
                         geography={ geography }
                         projection={ projection }
+                        style={{
+                          default: {
+                            fill: "#ECEFF1",
+                            stroke: "#607D8B",
+                            strokeWidth: 0.75,
+                            outline: "none",
+                          },
+                          hover: {
+                            fill: "#79b6d1",
+                            stroke: "#607D8B",
+                            strokeWidth: 0.75,
+                            outline: "none",
+                          }
+                        }}
                         />
                     ))}
                 </Geographies>
