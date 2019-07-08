@@ -6,9 +6,11 @@ export default function Footer() {
     return (
         <div>
             <BottomNavigation>
-                <Link href='https://newsapi.org'> 
-                    Powered by News API
-                </Link>
+                <small>
+                    <Link href='https://newsapi.org'> 
+                        Powered by News API
+                    </Link>
+                </small>  
             </BottomNavigation>
         </div>
     )
