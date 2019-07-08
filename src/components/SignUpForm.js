@@ -10,7 +10,6 @@ class SignUpForm extends React.Component {
     email: "",
     password: "",
     passwordConfirmation: "",
-
   }
 
   handleChange = (event) => {

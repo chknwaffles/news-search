@@ -1,66 +1,16 @@
 import React from 'react'
 import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
-
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-// <<<<<<< jennifer
-// import List from '@material-ui/core/List';
-// import Divider from '@material-ui/core/Divider';
-// import ListItem from '@material-ui/core/ListItem';
-// import ListItemIcon from '@material-ui/core/ListItemIcon';
-// import ListItemText from '@material-ui/core/ListItemText';
-// import MoreVertIcon from '@material-ui/icons/MoreVert';
-// import Typography from '@material-ui/core/Typography';
-
-
-// class NavBar extends React.Component {
-//     render(){
-//         return (
-//             <div>
-//                 <AppBar position='sticky'>
-//                     {
-//                     this.props.currentUser
-
-//                     ?
-                    
-//                     <Toolbar>
-//                         <Button className='more-options'> <MoreVertIcon /> </Button>
-//                         <Typography variant="h6">News</Typography>
-//                         <Button onClick={this.props.logout} color="inherit">Logout</Button>
-//                     </Toolbar>
-
-//                     :
-
-//                     <Toolbar>
-//                         <Button className='more-options'> <MoreVertIcon /> </Button>
-//                         <Typography variant="h6">News</Typography>
-//                         <Button to="/login" color="inherit">Login</Button>
-//                         <Button to="/signup" color="inherit">SignUp</Button>
-//                     </Toolbar>
-//                     }
-//                 </AppBar>
-                
-//             </div>
-//         )
-//     }
-
-// }
-
-// export default NavBar
-// =======
-import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
   },
   title: {
     flexGrow: 1,
@@ -76,7 +26,7 @@ const useStyles = makeStyles(theme => ({
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    marginLeft: 0,
+    marginLeft: 10,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(1),
@@ -84,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   searchIcon: {
-    width: theme.spacing(7),
+    width: theme.spacing(10),
     height: '100%',
     position: 'absolute',
     pointerEvents: 'none',
@@ -108,48 +58,41 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function NavBar({searchTerm, handleSearchInput, handleSearchSubmit}) {
+export default function NavBar({currentUser, logout, searchTerm, handleSearchInput, handleSearchSubmit}) {
     const classes = useStyles();
     const showProperButton = () => {
-      if (props.currentUser) {
-        <Button onClick={props.logout} color="inherit">Logout</Button>
+      if (currentUser) {
+        return <Button onClick={logout} color="inherit">Logout</Button>
       } else {              
-                        <Button to="/login" color="inherit">Login</Button>
-                        <Button to="/signup" color="inherit">SignUp</Button>
+            return (
+            <React.Fragment>
+                <Button to='/login' component={Link} color="inherit">Login</Button>
+                <Button to="/signup" component={Link} color="inherit">SignUp</Button>
+            </React.Fragment>)
       }
     }
     return (
         <div className={classes.root}>
             <AppBar position="sticky">
                 <Toolbar>
-                    <IconButton
-                    edge="start"
-                    className={classes.menuButton}
-                    color="inherit"
-                    aria-label="Open drawer"
-                    >
-                        <MenuIcon />
-                    </IconButton>
+                    <Typography variant="h6" to='/' component={Link} >News</Typography>
+                    {showProperButton()}
+
                     <div className={classes.search}>
-                    <div className={classes.searchIcon}>
-                        <SearchIcon />
-                    </div>
-                    <Toolbar>
-                        <Button className='more-options'> <MoreVertIcon /> </Button>
-                        <Typography variant="h6">News</Typography>
-                        {showProperButton()}
-                    </Toolbar>
-                    <InputBase
-                        placeholder="Search Topic..."
-                        classes={{
-                        root: classes.inputRoot,
-                        input: classes.inputInput,
-                        }}
-                        inputProps={{ 'aria-label': 'Search' }}
-                        value={searchTerm}
-                        onChange={handleSearchInput}
-                    />
-                    <Button size='small' onClick={handleSearchSubmit}>Search</Button>
+                        <div className={classes.searchIcon}>
+                            <SearchIcon />
+                        </div>
+                        <InputBase
+                            placeholder="Search Topic..."
+                            classes={{
+                            root: classes.inputRoot,
+                            input: classes.inputInput,
+                            }}
+                            inputProps={{ 'aria-label': 'Search' }}
+                            value={searchTerm}
+                            onChange={handleSearchInput}
+                        />
+                        <Button size='small' onClick={handleSearchSubmit}>Search</Button>
                     </div>
                 </Toolbar>
             </AppBar>

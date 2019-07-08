@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import NavBar from './components/NavBar';
 import MainContainer from './containers/MainContainer';
@@ -67,19 +67,16 @@ import SignUpForm from './components/SignUpForm'
 //     );
 //   }
 
-
 const SEARCH_URL = 'http://localhost:3000/articles/search'
 
 export default function App() {
-  
-  const [user, setUser] = useState(null)
+  const [currentUser, setUser] = useState(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [articles, setArticles] = useState([])
-  
-  const token = localStorage.getItem("token")
-  
+
   useEffect(() => {
-     if(token){
+    const token = localStorage.getItem("token")
+     if (token) {
       fetch("http://localhost:3000/auto_login", {
 				headers: {
 					"Authorization": token
@@ -95,7 +92,7 @@ export default function App() {
 				}
 			})
     }
-  }, token)
+  })
   
   const setCurrentUser = (user) => setUser(user)
   const logout = () => {
@@ -113,29 +110,30 @@ export default function App() {
   }
 
   return (
-    <div className="App">
-      <NavBar
-        currentUser={this.state.currentUser}
-        logout={this.logout}
-        searchTerm={searchTerm}
-        handleSearchInput={handleSearchInput}
-        handleSearchSubmit={handleSearchSubmit}
-      />
-      <BrowserRouter>
-        <Switch>
-          <Route path="/users/:id" component={MainContainer} />
-          <Route path="/login" render={(routerProps) => {
-            return <LoginForm setCurrentUser={this.setCurrentUser} {...routerProps}/>
-          }} />
-          <Route path="/signup" render={(routerProps) => {
-					  return <SignUpForm setCurrentUser={this.setCurrentUser} {...routerProps}/>
-				  }} />
-         </Switch>
-       </BrowserRouter>
-      <MainContainer searchTerm={searchTerm} articles={articles}/>
-      <Footer />
-    </div>
+    <Router>
+      <div className="App">
+        <NavBar
+          currentUser={currentUser}
+          logout={logout}
+          searchTerm={searchTerm}
+          handleSearchInput={handleSearchInput}
+          handleSearchSubmit={handleSearchSubmit}
+        />
+        
+          <Switch>
+            <Route exact path="/users/:id" component={MainContainer} />
+            <Route exact path="/login" render={(routerProps) => {
+              return <LoginForm setCurrentUser={setCurrentUser} {...routerProps}/>
+            }} />
+            <Route exact path="/signup" render={(routerProps) => {
+              return <SignUpForm setCurrentUser={setCurrentUser} {...routerProps}/>
+            }} />
+            <Route exact path='/' render={routerProps => <MainContainer searchTerm={searchTerm} articles={articles} {...routerProps} />} />
+          </Switch>
+        
+        
+        <Footer />
+      </div>
+    </Router>
   );
 }
-
-export default App

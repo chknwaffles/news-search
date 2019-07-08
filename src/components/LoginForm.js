@@ -4,7 +4,6 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
-
 class LoginForm extends React.Component {
   state = {
     email: "",
