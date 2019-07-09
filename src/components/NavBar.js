@@ -71,6 +71,7 @@ export default function NavBar({currentUser, logout, searchTerm, handleSearchInp
             </React.Fragment>)
       }
     }
+    
     return (
         <div className={classes.root}>
             <AppBar position="sticky">
