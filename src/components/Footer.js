@@ -4,7 +4,7 @@ import Link from '@material-ui/core/Link';
 
 export default function Footer() {
     return (
-        <div>
+        <div className='footer'>
             <BottomNavigation>
                 <small>
                     <Link href='https://newsapi.org'> 
