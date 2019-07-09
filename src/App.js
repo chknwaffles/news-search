@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
 import NavBar from './components/NavBar';
 import MainContainer from './containers/MainContainer';
@@ -35,7 +35,7 @@ export default function App(props) {
           localStorage.removeItem("user_id")
           alert(response.errors)
         } else {
-          setCurrentUser(response)
+          setUser(response)
           console.log(response)
         }
       })
@@ -82,7 +82,7 @@ export default function App(props) {
         />
         
         <Switch>
-          <Route exact path="/profile" render={(routerProps) => <UserPage currentUser={currentUser} {...routerProps}/>} />
+          <Route exact path="/profile" render={(routerProps) => (currentUser) ? <UserPage currentUser={currentUser} {...routerProps}/> : <Redirect to='/' />} />
           <Route exact path="/login" render={(routerProps) => <Form signup={false} setCurrentUser={setCurrentUser} {...routerProps}/>} />
           <Route exact path="/signup" render={(routerProps) => <Form signup={true} setCurrentUser={setCurrentUser} {...routerProps}/>} />
           <Route path='/' render={routerProps => <MainContainer handleLiked={handleLiked} searchTerm={searchTerm} currentUser={currentUser} articles={articles} {...routerProps} />} />

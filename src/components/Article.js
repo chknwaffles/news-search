@@ -20,6 +20,8 @@ export default function Article(props) {
     const classes = useStyles();
     const { currentUser, handleLiked, id, source, author, title, description, url, urlImage, publishedAt } = props
     const [liked, setLiked] = useState(() => {
+        if (currentUser === null) 
+            return false
         if (currentUser.articles.find(article => article.id === id)) 
             return true
         
