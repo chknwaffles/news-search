@@ -20,11 +20,33 @@ export default function App(props) {
     //   setArticles(data)
     // })
   // }, [])
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      fetch("http://localhost:3000/auto_login", {
+        headers: {
+          "Authorization": token
+        }
+      })
+      .then(res => res.json())
+      .then(response => {
+        if (response.errors){
+          localStorage.removeItem("user_id")
+          alert(response.errors)
+        } else {
+          setCurrentUser(response)
+          console.log(response)
+        }
+      })
+    }
+  }, [])
   
   const setCurrentUser = (user) => setUser(user)
 
   const logout = () => {
     setUser(null)
+    localStorage.removeItem("token")
   }
 
   const handleSearchInput = (e) => setSearchTerm(e.target.value)
@@ -34,6 +56,17 @@ export default function App(props) {
     .then(r => r.json())
     .then(allArticles => {
       setArticles(allArticles)
+    })
+  }
+
+  const handleLiked = (article) => {
+    fetch(`http://localhost:3000/like/${currentUser.id}/article/${article.id}`)
+    .then(r => r.json())
+    .then(data => {
+        //re render user stuff
+        let updatedUser = currentUser
+        updatedUser.articles.push(article)
+        setCurrentUser(updatedUser)
     })
   }
 
@@ -49,10 +82,10 @@ export default function App(props) {
         />
         
         <Switch>
-          <Route exact path="/users/:id" component={UserPage} />
+          <Route exact path="/profile" render={(routerProps) => <UserPage currentUser={currentUser} {...routerProps}/>} />
           <Route exact path="/login" render={(routerProps) => <Form signup={false} setCurrentUser={setCurrentUser} {...routerProps}/>} />
           <Route exact path="/signup" render={(routerProps) => <Form signup={true} setCurrentUser={setCurrentUser} {...routerProps}/>} />
-          <Route path='/' render={routerProps => <MainContainer searchTerm={searchTerm} currentUser={currentUser} articles={articles} {...routerProps} />} />
+          <Route path='/' render={routerProps => <MainContainer handleLiked={handleLiked} searchTerm={searchTerm} currentUser={currentUser} articles={articles} {...routerProps} />} />
         </Switch>
         <Footer />
       </div>

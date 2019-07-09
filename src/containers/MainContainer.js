@@ -12,15 +12,9 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function MainContainer({ searchTerm, currentUser, articles }) {
+export default function MainContainer({ handleLiked, searchTerm, currentUser, articles }) {
     const classes = useStyles();
-    const handleLiked = (article) => {
-        fetch(`http://localhost:3000/like/${currentUser.id}/article/${article.id}`)
-        .then(r => r.json())
-        .then(data => {
-            console.log('working?')
-        })
-    }
+    
 
     const renderCards = () => articles.map(article => <Article key={article.id} currentUser={currentUser} handleLiked={handleLiked} {...article} />)
 

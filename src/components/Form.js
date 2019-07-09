@@ -33,7 +33,7 @@ export default function Form(props) {
           } else {
             localStorage.setItem("token", data.token)
             props.setCurrentUser(data.user)
-            props.history.push(`/users/${data.user.id}`)
+            props.history.push('/profile')
           }
         }) 
     }
