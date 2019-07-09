@@ -24,14 +24,12 @@ export default function App(props) {
   const setCurrentUser = (user) => setUser(user)
 
   const logout = () => {
-    props.history.push("/login")
     setUser(null)
-    // setLoggedIn(false)
-    //need to re-render after
   }
 
   const handleSearchInput = (e) => setSearchTerm(e.target.value)
-  const handleSearchSubmit = () => {
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
     fetch(`http://localhost:3000/articles/search/${searchTerm}`)
     .then(r => r.json())
     .then(allArticles => {

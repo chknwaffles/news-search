@@ -62,7 +62,7 @@ export default function NavBar({currentUser, logout, searchTerm, handleSearchInp
     const classes = useStyles();
     const showProperButton = () => {
       if (currentUser) {
-        return <Button onClick={logout} color="inherit">Logout</Button>
+        return <Button onClick={() => logout()} to='/login' component={Link} color="inherit">Logout</Button>
       } else {              
             return (
             <React.Fragment>
@@ -82,17 +82,18 @@ export default function NavBar({currentUser, logout, searchTerm, handleSearchInp
                         <div className={classes.searchIcon}>
                             <SearchIcon />
                         </div>
-                        <InputBase
-                            placeholder="Search Topic..."
-                            classes={{
-                            root: classes.inputRoot,
-                            input: classes.inputInput,
-                            }}
-                            inputProps={{ 'aria-label': 'Search' }}
-                            value={searchTerm}
-                            onChange={handleSearchInput}
-                        />
-                        <Button size='small' onClick={handleSearchSubmit}>Search</Button>
+                        <form onSubmit={handleSearchSubmit} >
+                          <InputBase
+                              placeholder="Search Topic..."
+                              classes={{
+                              root: classes.inputRoot,
+                              input: classes.inputInput,
+                              }}
+                              inputProps={{ 'aria-label': 'Search' }}
+                              value={searchTerm}
+                              onChange={handleSearchInput}
+                          />
+                        </form>
                     </div>
                 </Toolbar>
             </AppBar>
