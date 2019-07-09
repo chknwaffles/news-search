@@ -17,8 +17,8 @@ export default function Form(props) {
                 return
             }
         }
-        
-        fetch('http://localhost:3000/login', {
+        const URL = (props.signup) ? 'users' : 'login'
+        fetch(`http://localhost:3000/${URL}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -30,7 +30,6 @@ export default function Form(props) {
         .then(data => {
           if (data.errors) {
             alert(data.errors)
-            console.log(data.errors)
           } else {
             localStorage.setItem("token", data.token)
             props.setCurrentUser(data.user)

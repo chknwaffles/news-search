@@ -14,20 +14,22 @@ export default function App(props) {
   const [articles, setArticles] = useState([])
 
   useEffect(() => {
-    fetch('http://localhost:3000/articles')
-    .then(r => r.json())
-    .then(data => {
-      setArticles(data)
-    })
+    // fetch('http://localhost:3000/articles')
+    // .then(r => r.json())
+    // .then(data => {
+    //   setArticles(data)
+    // })
   }, [])
   
   const setCurrentUser = (user) => setUser(user)
+
   const logout = () => {
-    setUser(null)
     props.history.push("/login")
+    setUser(null)
+    // setLoggedIn(false)
     //need to re-render after
   }
-    
+
   const handleSearchInput = (e) => setSearchTerm(e.target.value)
   const handleSearchSubmit = () => {
     fetch(`http://localhost:3000/articles/search/${searchTerm}`)
