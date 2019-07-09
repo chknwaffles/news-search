@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
 export default function Form(props) {
-    const [fields, setFields] = useState({})
+    const [fields, setFields] = useState({email: '', password: '', passwordConfirmation: ''})
 
     const handleChange = (event) => setFields({...fields, [event.target.name]: event.target.value})
 
