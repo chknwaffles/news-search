@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -75,7 +75,7 @@ export default function NavBar({currentUser, logout, searchTerm, handleSearchInp
         <div className={classes.root}>
             <AppBar position="sticky">
                 <Toolbar>
-                    <Typography variant="h6" to='/' component={Link} >News</Typography>
+                    <Typography variant="h6" to='/' component={Link}> News </Typography>
                     {showProperButton()}
 
                     <div className={classes.search}>
