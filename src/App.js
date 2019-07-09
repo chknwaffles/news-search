@@ -13,13 +13,13 @@ export default function App(props) {
   const [searchTerm, setSearchTerm] = useState('')
   const [articles, setArticles] = useState([])
 
-  useEffect(() => {
+  // useEffect(() => {
     // fetch('http://localhost:3000/articles')
     // .then(r => r.json())
     // .then(data => {
     //   setArticles(data)
     // })
-  }, [])
+  // }, [])
   
   const setCurrentUser = (user) => setUser(user)
 
@@ -52,7 +52,7 @@ export default function App(props) {
           <Route exact path="/users/:id" component={UserPage} />
           <Route exact path="/login" render={(routerProps) => <Form signup={false} setCurrentUser={setCurrentUser} {...routerProps}/>} />
           <Route exact path="/signup" render={(routerProps) => <Form signup={true} setCurrentUser={setCurrentUser} {...routerProps}/>} />
-          <Route path='/' render={routerProps => <MainContainer searchTerm={searchTerm} articles={articles} {...routerProps} />} />
+          <Route path='/' render={routerProps => <MainContainer searchTerm={searchTerm} currentUser={currentUser} articles={articles} {...routerProps} />} />
         </Switch>
         <Footer />
       </div>
