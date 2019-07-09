@@ -18,7 +18,7 @@ class LoginForm extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    // console.log('Logging In', this.state)
+
     fetch('http://localhost:3000/login', {
       method: 'POST',
       headers: {
@@ -31,8 +31,7 @@ class LoginForm extends React.Component {
     .then(data => {
       if (data.errors) {
         alert(data.errors)
-      }else {
-        console.log(data)
+      } else {
         localStorage.setItem("token", data.token)
         this.props.setCurrentUser(data.user)
         this.props.history.push(`/users/${data.user.id}`)

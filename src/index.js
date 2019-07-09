@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 ReactDOM.render(
   <Router>
-    <Route path="/" component={App} />
+    <Route path="/" render={(routerProps) => <App {...routerProps}/>} />
   </Router>, document.getElementById('root'));
 // ReactDOM.render(<Footer/>, document.getElementById('footer'));
 // If you want your app to work offline and load faster, you can change

@@ -7,6 +7,7 @@ import MainContainer from './containers/MainContainer';
 import Footer from './components/Footer';
 import LoginForm from './components/LoginForm'
 import SignUpForm from './components/SignUpForm'
+import UserPage from './components/UserPage';
 
 // class App extends React.Component {
 
@@ -32,77 +33,41 @@ import SignUpForm from './components/SignUpForm'
 //     }
 //   }
 
-
-//   setCurrentUser = (user) => {
-//     this.setState({
-//       currentUser: user
-//     })
-//   }
-
-//   logout = () => {
-//     this.setState({
-//       currentUser: null
-//     })
-//     this.props.history.push("/login")
-//   }
-
-//   render(){  
-//     return (
-//       <div className="App">
-//         <NavBar currentUser={this.state.currentUser} logout={this.logout}/>
-//         <BrowserRouter>
-//           <Switch>
-//             <Route path="/users/:id" component={MainContainer} />
-//             <Route path="/login" render={(routerProps) => {
-//               return <LoginForm setCurrentUser={this.setCurrentUser} {...routerProps}/>
-//             }} />
-//             <Route path="/signup" render={(routerProps) => {
-// 							return <SignUpForm setCurrentUser={this.setCurrentUser} {...routerProps}/>
-// 						}} />
-//           </Switch>
-//         </BrowserRouter>
-
-//         <Footer />
-//       </div>
-//     );
-//   }
-
-const SEARCH_URL = 'http://localhost:3000/articles/search'
-
-export default function App() {
+export default function App(props) {
   const [currentUser, setUser] = useState(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [articles, setArticles] = useState([])
 
-  useEffect(() => {
-    const token = localStorage.getItem("token")
-     if (token) {
-      fetch("http://localhost:3000/auto_login", {
-				headers: {
-					"Authorization": token
-				}
-			})
-			.then(response => response.json())
-			.then(data => {
-				if (data.errors){
-					localStorage.removeItem("user_id")
-					alert(data.errors)
-				} else {
-          setUser(data)
-				}
-			})
-    }
-  })
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token")
+  //   if (token) {
+  //     fetch("http://localhost:3000/auto_login", {
+	// 			headers: {
+	// 				"Authorization": token
+	// 			}
+	// 		})
+	// 		.then(response => response.json())
+	// 		.then(data => {
+	// 			if (data.errors) {
+	// 				localStorage.removeItem("user_id")
+	// 				alert(data.errors)
+	// 			} else {
+  //         setUser(data)
+	// 			}
+	// 		})
+  //   }
+  // })
   
   const setCurrentUser = (user) => setUser(user)
   const logout = () => {
     setUser(null)
-    this.props.history.push("/login")
+    props.history.push("/login")
+    //need to re-render after
   }
     
   const handleSearchInput = (e) => setSearchTerm(e.target.value)
   const handleSearchSubmit = () => {
-    fetch(`${SEARCH_URL}/${searchTerm}`)
+    fetch(`$http://localhost:3000/articles/search/${searchTerm}`)
     .then(r => r.json())
     .then(allArticles => {
       setArticles(allArticles)
@@ -120,18 +85,12 @@ export default function App() {
           handleSearchSubmit={handleSearchSubmit}
         />
         
-          <Switch>
-            <Route exact path="/users/:id" component={MainContainer} />
-            <Route exact path="/login" render={(routerProps) => {
-              return <LoginForm setCurrentUser={setCurrentUser} {...routerProps}/>
-            }} />
-            <Route exact path="/signup" render={(routerProps) => {
-              return <SignUpForm setCurrentUser={setCurrentUser} {...routerProps}/>
-            }} />
-            <Route exact path='/' render={routerProps => <MainContainer searchTerm={searchTerm} articles={articles} {...routerProps} />} />
-          </Switch>
-        
-        
+        <Switch>
+          <Route exact path="/users/:id" component={UserPage} />
+          <Route exact path="/login" render={(routerProps) => <LoginForm setCurrentUser={setCurrentUser} {...routerProps}/>} />
+          <Route exact path="/signup" render={(routerProps) => <SignUpForm setCurrentUser={setCurrentUser} {...routerProps}/>} />
+          <Route path='/' render={routerProps => <MainContainer searchTerm={searchTerm} articles={articles} {...routerProps} />} />
+        </Switch>
         <Footer />
       </div>
     </Router>
