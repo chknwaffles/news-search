@@ -12,7 +12,17 @@ code {
     monospace;
 }
 
-fab {
-  margin-right: 100%
+.footer {
+  width: 100%;
+  text-align: center;
+}
+
+.fab {
+  margin: 0px;
+  top: auto;
+  right: 20px;
+  bottom: 20px;
+  left: auto;
+  position: fixed;
 }
 

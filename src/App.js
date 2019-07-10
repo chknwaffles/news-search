@@ -10,6 +10,15 @@ import UserPage from './components/UserPage';
 import ArrowUpward from '@material-ui/icons/ArrowUpward'
 
 export default function App(props) {
+  const fabStyle = {
+    margin: 0,
+    top: 'auto',
+    right: 20,
+    bottom: 20,
+    left: 'auto',
+    position: 'fixed',
+  }
+
   const [currentUser, setUser] = useState(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [articles, setArticles] = useState([])
@@ -83,6 +92,10 @@ export default function App(props) {
     })
   }
 
+  const scrollToTop = () => {
+    window.scrollTo(0, 0);
+  }
+
   return (
     <div className="App">
       <NavBar
@@ -101,7 +114,7 @@ export default function App(props) {
         <Route path='/' render={routerProps => <MainContainer handleFavorite={handleFavorite} searchTerm={searchTerm} currentUser={currentUser} articles={articles} {...routerProps} />} />
       </Switch>
 
-      <Fab className="fab"> 
+      <Fab onClick={() => scrollToTop()} style={fabStyle}> 
         <ArrowUpward />
       </Fab>
     </div>
