@@ -13,7 +13,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function UserPage(props) {
     const classes = useStyles();
-    const [checked, setChecked] = useState([]);
   
     const renderLikedArticles = () => {
         return props.currentUser.articles.map((article, i) => {

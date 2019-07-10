@@ -57,7 +57,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function NavBar({currentUser, logout, searchTerm, handleSearchInput, handleSearchSubmit}) {
+export default function NavBar({currentUser, logout, searchTerm, handleSearchInput, handleSearchSubmit, history}) {
     const classes = useStyles();
     const showProperButton = () => {
       if (currentUser) {
@@ -76,6 +76,12 @@ export default function NavBar({currentUser, logout, searchTerm, handleSearchInp
       }
     }
 
+    const searchSubmit = (e) => {
+      e.preventDefault()
+      history.push('/')
+      handleSearchSubmit()
+    }
+
     return (
         <div className={classes.root}>
             <AppBar position="sticky">
@@ -87,7 +93,7 @@ export default function NavBar({currentUser, logout, searchTerm, handleSearchInp
                         <div className={classes.searchIcon}>
                             <SearchIcon />
                         </div>
-                        <form onSubmit={handleSearchSubmit} >
+                        <form onSubmit={(e) => searchSubmit(e)} >
                           <InputBase
                               placeholder="Search Topic..."
                               classes={{
