@@ -78,17 +78,18 @@ export default function App(props) {
     .then(r => r.json())
     .then(() => {
         //re render user stuff
-        let updatedUser = currentUser
-        let targetArticle = updatedUser.articles.find(a => a.id === article.id)
+        let updatedArticles = currentUser.articles
+        let targetArticle = currentUser.articles.find(a => a.id === article.id)
 
-        if (updatedUser.articles.includes(targetArticle)) {
-          updatedUser.articles.forEach((a, i) => {
-            if (a.id === targetArticle.id) updatedUser.articles.splice(i, 1)
+        if (updatedArticles.includes(targetArticle)) {
+          updatedArticles.forEach((a, i) => {
+            if (a.id === targetArticle.id) updatedArticles.splice(i, 1)
           })
         } else {
-          updatedUser.articles.push(article)
+          updatedArticles.push(article)
         }
-        setCurrentUser(updatedUser)
+
+        setCurrentUser({...currentUser, articles: updatedArticles})
     })
   }
 
