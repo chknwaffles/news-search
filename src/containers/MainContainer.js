@@ -12,11 +12,11 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function MainContainer({ handleLiked, searchTerm, currentUser, articles }) {
+export default function MainContainer({ handleFavorite, searchTerm, currentUser, articles }) {
     const classes = useStyles();
     
 
-    const renderCards = () => articles.map(article => <Article key={article.id} currentUser={currentUser} handleLiked={handleLiked} {...article} />)
+    const renderCards = () => articles.map(article => <Article key={article.id} currentUser={currentUser} handleFavorite={handleFavorite} {...article} />)
 
     return (
         <div className={classes.root}>
