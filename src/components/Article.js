@@ -40,7 +40,7 @@ export default function Article(props) {
 
     return (
         <Card className={classes.card}>
-            <CardActionArea>
+            <CardActionArea onClick={() => window.open(url)}>
                 <CardMedia
                 component="img"
                 alt={source}
