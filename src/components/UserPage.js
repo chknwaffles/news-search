@@ -20,6 +20,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function UserPage(props) {
     const classes = useStyles();
+
     const [checked, setChecked] = useState([]);
 
     const handleToggle = value => () => {
@@ -34,7 +35,6 @@ export default function UserPage(props) {
     
         setChecked(newChecked);
       };
-    
 
   
     const renderLikedArticles = () => {

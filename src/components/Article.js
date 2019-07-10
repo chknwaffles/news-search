@@ -32,7 +32,8 @@ export default function Article(props) {
 
     const handleLike = () => {
         if (currentUser) {
-            setLiked(true)
+            setLiked(!liked)
+            console.log(liked)
             handleLiked(props)
         } else {
             alert('You need to log in first!')
@@ -59,9 +60,9 @@ export default function Article(props) {
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="primary" >
+                <Button size="small" color="primary" onClick={() => handleLike()} >
 
-                    {(liked) ? <ThumbUpAltIcon /> : <ThumbUpIcon onClick={() => handleLike()}/>}
+                    {(liked) ? <ThumbUpAltIcon /> : <ThumbUpIcon />}
                 </Button>
             </CardActions>
         </Card>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import NavBar from './components/NavBar';
 import MainContainer from './containers/MainContainer';
@@ -12,14 +12,6 @@ export default function App(props) {
   const [currentUser, setUser] = useState(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [articles, setArticles] = useState([])
-
-  // useEffect(() => {
-    // fetch('http://localhost:3000/articles')
-    // .then(r => r.json())
-    // .then(data => {
-    //   setArticles(data)
-    // })
-  // }, [])
 
   useEffect(() => {
     const token = localStorage.getItem('token')
@@ -50,8 +42,7 @@ export default function App(props) {
   }
 
   const handleSearchInput = (e) => setSearchTerm(e.target.value)
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
+  const handleSearchSubmit = () => {
     fetch(`http://localhost:3000/articles/search/${searchTerm}`)
     .then(r => r.json())
     .then(allArticles => {
@@ -66,30 +57,37 @@ export default function App(props) {
     .then(data => {
         //re render user stuff
         let updatedUser = currentUser
-        updatedUser.articles.push(article)
+        let targetArticle = updatedUser.articles.find(a => a.id === article.id)
+
+        if (updatedUser.articles.includes(targetArticle)) {
+          updatedUser.articles.forEach((a, i) => {
+            if (a.id === targetArticle.id) updatedUser.articles.splice(i, 1)
+          })
+        } else {
+          updatedUser.articles.push(article)
+        }
         setCurrentUser(updatedUser)
     })
   }
 
   return (
-    <Router>
-      <div className="App">
-        <NavBar
-          currentUser={currentUser}
-          logout={logout}
-          searchTerm={searchTerm}
-          handleSearchInput={handleSearchInput}
-          handleSearchSubmit={handleSearchSubmit}
-        />
-        
-        <Switch>
-          <Route exact path="/profile" render={(routerProps) => (currentUser) ? <UserPage currentUser={currentUser} {...routerProps}/> : <Redirect to='/' />} />
-          <Route exact path="/login" render={(routerProps) => <Form signup={false} setCurrentUser={setCurrentUser} {...routerProps}/>} />
-          <Route exact path="/signup" render={(routerProps) => <Form signup={true} setCurrentUser={setCurrentUser} {...routerProps}/>} />
-          <Route path='/' render={routerProps => <MainContainer handleLiked={handleLiked} searchTerm={searchTerm} currentUser={currentUser} articles={articles} {...routerProps} />} />
-        </Switch>
-        <Footer />
-      </div>
-    </Router>
+    <div className="App">
+      <NavBar
+        currentUser={currentUser}
+        logout={logout}
+        searchTerm={searchTerm}
+        handleSearchInput={handleSearchInput}
+        handleSearchSubmit={handleSearchSubmit}
+        {...props}
+      />
+      
+      <Switch>
+        <Route exact path="/profile" render={(routerProps) => (currentUser) ? <UserPage currentUser={currentUser} {...routerProps}/> : <Redirect to='/' />} />
+        <Route exact path="/login" render={(routerProps) => <Form signup={false} setCurrentUser={setCurrentUser} {...routerProps}/>} />
+        <Route exact path="/signup" render={(routerProps) => <Form signup={true} setCurrentUser={setCurrentUser} {...routerProps}/>} />
+        <Route path='/' render={routerProps => <MainContainer handleLiked={handleLiked} searchTerm={searchTerm} currentUser={currentUser} articles={articles} {...routerProps} />} />
+      </Switch>
+      <Footer />
+    </div>
   );
 }
