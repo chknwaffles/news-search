@@ -12,8 +12,7 @@ code {
     monospace;
 }
 
-map {
-  width: 100%;
-  max-width: 980;
-  margin: 0 auto;
+fab {
+  margin-right: 100%
 }
+

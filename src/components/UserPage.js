@@ -6,9 +6,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-
-
-
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
@@ -24,7 +21,7 @@ export default function UserPage(props) {
     const classes = useStyles();
 
     const handleDelete = article => {
-        props.handleLiked(article)
+        props.handleFavorite(article)
     }
 
     const renderLikedArticles = () => {
