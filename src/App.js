@@ -24,9 +24,13 @@ export default function App(props) {
   const [articles, setArticles] = useState([])
   const [result, setResult] = useState(false)
 
-  useEffect(() => {
-    
-  }, [])
+  const fetchHighestUpvoted = () => {
+    fetch('http://localhost:3000/articles/most_liked')
+    .then(r => r.json())
+    .then(data => {
+      setArticles(data)
+    })
+  }
 
   useEffect(() => {
     const token = localStorage.getItem('token')
@@ -48,11 +52,7 @@ export default function App(props) {
       })
     }
 
-    fetch('http://localhost:3000/articles/most_liked')
-    .then(r => r.json())
-    .then(data => {
-      setArticles(data)
-    })
+    fetchHighestUpvoted()
   }, [])
   
   const setCurrentUser = (user) => setUser(user)
@@ -104,6 +104,7 @@ export default function App(props) {
         searchTerm={searchTerm}
         handleSearchInput={handleSearchInput}
         handleSearchSubmit={handleSearchSubmit}
+        fetchHighestUpvoted={fetchHighestUpvoted}
         {...props}
       />
       

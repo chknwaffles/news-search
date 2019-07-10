@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    marginRight: theme.spacing(160),
+    marginRight: '68%',
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(2),
@@ -51,7 +51,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function NavBar({currentUser, logout, searchTerm, handleSearchInput, handleSearchSubmit, history}) {
+export default function NavBar({currentUser, logout, searchTerm, handleSearchInput, handleSearchSubmit, fetchHighestUpvoted, history}) {
     const classes = useStyles();
     const showProperButton = () => {
       if (currentUser) {
@@ -81,7 +81,7 @@ export default function NavBar({currentUser, logout, searchTerm, handleSearchInp
         <div className={classes.root}>
             <AppBar position="sticky">
                 <Toolbar>
-                    <Button to="/" component={Link} color='inherit'> News </Button>
+                    <Button to="/" component={Link} color='inherit' onClick={() => fetchHighestUpvoted()} > News </Button>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
                             <SearchIcon />
