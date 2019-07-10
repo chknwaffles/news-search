@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
+    paddingBottom: 2
   },
   
   navItem: {
@@ -113,7 +114,6 @@ export default function NavBar({currentUser, logout, searchTerm, handleSearchInp
                     </div>
                 </Toolbar>
             </AppBar>
-            <br></br><br></br>
         </div>
     )
 }

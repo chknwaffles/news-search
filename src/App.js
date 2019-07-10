@@ -54,7 +54,7 @@ export default function App(props) {
   const handleLiked = (article) => {
     fetch(`http://localhost:3000/like/${currentUser.id}/article/${article.id}`)
     .then(r => r.json())
-    .then(data => {
+    .then(() => {
         //re render user stuff
         let updatedUser = currentUser
         let targetArticle = updatedUser.articles.find(a => a.id === article.id)
@@ -82,7 +82,7 @@ export default function App(props) {
       />
       
       <Switch>
-        <Route exact path="/profile" render={(routerProps) => (currentUser) ? <UserPage currentUser={currentUser} {...routerProps}/> : <Redirect to='/' />} />
+        <Route exact path="/profile" render={(routerProps) => (currentUser) ? <UserPage handleLiked={handleLiked} currentUser={currentUser} {...routerProps}/> : <Redirect to='/' />} />
         <Route exact path="/login" render={(routerProps) => <Form signup={false} setCurrentUser={setCurrentUser} {...routerProps}/>} />
         <Route exact path="/signup" render={(routerProps) => <Form signup={true} setCurrentUser={setCurrentUser} {...routerProps}/>} />
         <Route path='/' render={routerProps => <MainContainer handleLiked={handleLiked} searchTerm={searchTerm} currentUser={currentUser} articles={articles} {...routerProps} />} />
