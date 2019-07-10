@@ -7,6 +7,7 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',
+        alignContent: 'space-around',
         overflow: 'hidden',
         backgroundColor: theme.palette.background.paper,
     }
