@@ -45,9 +45,9 @@ export default function App(props) {
   const handleSearchSubmit = () => {
     fetch(`http://localhost:3000/articles/search/${searchTerm}`)
     .then(r => r.json())
-    .then(data => {
-      setArticles(data)
-      console.log('pls be 2nd')
+    .then(allArticles => {
+      setArticles(allArticles)
+      setSearchTerm('')
     })
   }
 

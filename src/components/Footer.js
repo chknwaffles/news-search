@@ -2,6 +2,7 @@ import React from 'react'
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import Link from '@material-ui/core/Link';
 
+
 export default function Footer() {
     return (
         <div className='footer'>

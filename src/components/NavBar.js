@@ -11,12 +11,12 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
   },
-  title: {
-    flexGrow: 1,
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
+  
+  navItem: {
+    marginLeft: theme.spacing(2)
+  },
+  divItem: {
+    marginLeft: theme.spacing(10)
   },
   search: {
     position: 'relative',
@@ -25,15 +25,15 @@ const useStyles = makeStyles(theme => ({
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    marginLeft: 10,
+    marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
+      marginLeft: theme.spacing(2),
       width: 'auto',
     },
   },
   searchIcon: {
-    width: theme.spacing(10),
+    width: theme.spacing(7),
     height: '100%',
     position: 'absolute',
     pointerEvents: 'none',
@@ -63,19 +63,24 @@ export default function NavBar({currentUser, logout, searchTerm, handleSearchInp
       if (currentUser) {
         return (
           <React.Fragment>
-              <Button to='/profile' component={Link} color="inherit">Profile</Button>
-              <Button onClick={() => logout()} to='/login' component={Link} color="inherit">Logout</Button>
+            <Button to='/profile' component={Link} color="inherit">Profile</Button>
+            <Button className={classes.navItem} onClick={() => logout()} to='/login' component={Link} color="inherit">Logout</Button>
           </React.Fragment>
         )
       } else {              
             return (
             <React.Fragment>
-                <Button to='/login' component={Link} color="inherit">Login</Button>
-                <Button to="/signup" component={Link} color="inherit">SignUp</Button>
+              <Button className={classes.navItem} to='/login' component={Link} color="inherit">Login</Button>
+              <Button className={classes.navItem} to="/signup" component={Link} color="inherit">SignUp</Button>
             </React.Fragment>)
       }
     }
 
+
+    const createStupidDivs = () => {
+      return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18].map(e => <div className={classes.navItem}> </div>)
+    }
+                                                                                    
     const searchSubmit = (e) => {
       e.preventDefault()
       history.push('/')
@@ -88,7 +93,7 @@ export default function NavBar({currentUser, logout, searchTerm, handleSearchInp
                 <Toolbar>
                     <Button to="/" component={Link} color='inherit'> News </Button>
                     {showProperButton()}
-
+                    {createStupidDivs()}
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
                             <SearchIcon />
@@ -108,6 +113,7 @@ export default function NavBar({currentUser, logout, searchTerm, handleSearchInp
                     </div>
                 </Toolbar>
             </AppBar>
+            <br></br><br></br>
         </div>
     )
 }
