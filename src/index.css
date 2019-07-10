@@ -12,8 +12,17 @@ code {
     monospace;
 }
 
-map {
+.footer {
   width: 100%;
-  max-width: 980;
-  margin: 0 auto;
+  text-align: center;
 }
+
+.fab {
+  margin: 0px;
+  top: auto;
+  right: 20px;
+  bottom: 20px;
+  left: auto;
+  position: fixed;
+}
+

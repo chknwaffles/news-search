@@ -9,6 +9,9 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ThumbUpIcon from '@material-ui/icons/ThumbUpOutlined';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import IconButton from '@material-ui/core/IconButton'
+import ArrowUp from '@material-ui/icons/KeyboardArrowUp'
+import ArrowDown from '@material-ui/icons/KeyboardArrowDown'
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -20,7 +23,9 @@ const useStyles = makeStyles(theme => ({
 
 export default function Article(props) {
     const classes = useStyles();
-    const { currentUser, handleLiked, id, source, author, title, description, url, urlImage, publishedAt } = props
+    const { currentUser, handleFavorite, id, source, author, title, description, url, urlImage, publishedAt, likes, dislikes} = props
+    const [votes, setVotes] = useState({ likes: likes, dislikes: dislikes })
+
     const [liked, setLiked] = useState(() => {
         if (currentUser === null) 
             return false
@@ -34,15 +39,25 @@ export default function Article(props) {
         if (currentUser) {
             setLiked(!liked)
             console.log(liked)
-            handleLiked(props)
+            handleFavorite(props)
         } else {
             alert('You need to log in first!')
         }
     }
 
+    const handleVote = (type) => {
+        let voteType = (type === 'like') ? votes.likes : votes.dislikes
+        fetch(`http://localhost:3000/article/${id}/${type}`)
+        .then(r => r.json())
+        .then(data => {
+            let theType = type + 's'
+            setVotes({...votes, [theType]: voteType + 1})
+        })
+    }
+
     return (
         <Card className={classes.card}>
-            <CardActionArea>
+            <CardActionArea onClick={() => window.open(url)}>
                 <CardMedia
                 component="img"
                 alt={source}
@@ -64,6 +79,14 @@ export default function Article(props) {
 
                     {(liked) ? <ThumbUpAltIcon /> : <ThumbUpIcon />}
                 </Button>
+                <IconButton size="small" color="primary" onClick={() => handleVote('like')} >
+                    <ArrowUp />
+                    {votes.likes}
+                </IconButton>
+                <IconButton size="small" color="primary" onClick={() => handleVote('dislike')} >
+                    <ArrowDown />
+                    {votes.dislikes}
+                </IconButton>
             </CardActions>
         </Card>
     )
