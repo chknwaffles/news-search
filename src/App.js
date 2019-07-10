@@ -56,6 +56,7 @@ export default function App(props) {
     .then(r => r.json())
     .then(allArticles => {
       setArticles(allArticles)
+      setSearchTerm('')
     })
   }
 

@@ -10,11 +10,13 @@ import Typography from '@material-ui/core/Typography';
 import ThumbUpIcon from '@material-ui/icons/ThumbUpOutlined';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     card: {
-      maxWidth: 500
-    },
-});
+        maxWidth: 500,
+        marginLeft: theme.spacing(4),
+        marginBottom: theme.spacing(4)
+    }
+}));
 
 export default function Article(props) {
     const classes = useStyles();
