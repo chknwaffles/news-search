@@ -28,10 +28,9 @@ export default function UserPage(props) {
     }
 
     const renderLikedArticles = () => {
-        return props.currentUser.articles.map((article, value) => {
-            const labelId = `checkbox-list-secondary-label-${value}`;
+        return props.currentUser.articles.map((article, i) => {
             return (
-                <ListItem key={value} role={undefined} dense button>
+                <ListItem key={i} role={undefined} dense button>
                     <ListItemText id={article.id} primary={article.title} onClick={() => window.open(article.url, '_blank')} />
                     <IconButton onClick={() => handleDelete(article)} className={classes.button} aria-label="Delete">
                         <DeleteIcon />
