@@ -1,6 +1,6 @@
-<h3 align="center">Bomber Pandas</h3>
+<h3 align="center">News Search</h3>
 
-<p align="center"> A Bomberman clone, 2D maze-like player vs player game.
+<p align="center"> A web application that reports top and current news articles with the ability to save and like articles
     <br> 
 </p>
 
