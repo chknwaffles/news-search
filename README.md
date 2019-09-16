@@ -47,13 +47,11 @@ End with an example of getting some data out of the system or using it for a lit
 Add notes about how to use the system.
 
 ## Built Using <a name = "built_using"></a>
-- [MongoDB](https://www.mongodb.com/) - Database
-- [Express](https://expressjs.com/) - Server Framework
+- [PostgreSQL](https://www.postgresql.org/) - Database
+- [Ruby On Rails](https://rubyonrails.org/) - Server Framework/Environment
 - [ReactJs](https://reactjs.org/) - Web Framework
-- [NodeJs](https://nodejs.org/en/) - Server Environment
 
 ## TODO <a name = "todo"></a>
-- Realtime 4-player multiplayer
 
 ## Acknowledgements <a name = "acknowledgement"></a>
 - Hat tip to anyone whose code was used
